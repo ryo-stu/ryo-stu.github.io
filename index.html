@@ -4,31 +4,121 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ryo Games</title>
+<meta name="description" content="Ryo Games — small, simple mobile games for Android.">
+<meta name="theme-color" content="#fdf8ee" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#15161f" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2329a361'/%3E%3Ctext x='32' y='44' font-family='system-ui,sans-serif' font-size='40' font-weight='700' fill='%23fff' text-anchor='middle'%3ER%3C/text%3E%3C/svg%3E">
 <style>
-  :root { --bg: #fdf8ee; --text: #262940; --muted: #6b6d80; --accent: #29a361; }
-  body { margin: 0; background: var(--bg); color: var(--text);
-         font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
-  main { max-width: 720px; margin: 0 auto; padding: 48px 16px; }
-  h1 { font-size: 2.2rem; margin: 0 0 8px; }
-  p { color: var(--muted); }
-  a { color: var(--accent); }
-  .game { background: #fff; border-radius: 16px; padding: 16px 20px; margin: 24px 0; }
-  .game h2 { margin: 0 0 4px; font-size: 1.2rem; }
-  .game p { margin: 0; }
+  :root {
+    --bg: #fdf8ee;
+    --surface: #ffffff;
+    --text: #262940;
+    --muted: #6b6d80;
+    --border: #ece4d4;
+    --accent: #29a361;
+    --accent-soft: #e4f4ea;
+    --shadow: 0 1px 2px rgba(38,41,64,.04), 0 8px 24px rgba(38,41,64,.06);
+  }
+  :root:not([data-theme="light"]) {
+    @media (prefers-color-scheme: dark) {
+      --bg: #15161f;
+      --surface: #1e2030;
+      --text: #ecedf5;
+      --muted: #9a9cb3;
+      --border: #2b2d40;
+      --accent: #45c57e;
+      --accent-soft: #1d3328;
+      --shadow: 0 1px 2px rgba(0,0,0,.2), 0 8px 24px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #15161f;
+    --surface: #1e2030;
+    --text: #ecedf5;
+    --muted: #9a9cb3;
+    --border: #2b2d40;
+    --accent: #45c57e;
+    --accent-soft: #1d3328;
+    --shadow: 0 1px 2px rgba(0,0,0,.2), 0 8px 24px rgba(0,0,0,.35);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  main { max-width: 680px; margin: 0 auto; padding: 56px 16px 40px; }
+
+  .brand { display: flex; align-items: center; gap: 14px; margin-bottom: 32px; }
+  .brand .logo { width: 52px; height: 52px; flex: none; border-radius: 13px; box-shadow: var(--shadow); }
+  .brand h1 { font-size: 1.9rem; margin: 0; letter-spacing: -.02em; }
+  .brand .tag { color: var(--muted); font-size: .95rem; margin: 2px 0 0; }
+
+  .intro { font-size: 1.1rem; color: var(--text); margin: 0 0 32px; max-width: 46ch; }
+
+  .section-label {
+    font-size: .78rem; font-weight: 600; letter-spacing: .08em;
+    text-transform: uppercase; color: var(--muted); margin: 0 0 12px;
+  }
+
+  .game {
+    display: flex; gap: 16px; align-items: center;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 18px; padding: 18px 20px; box-shadow: var(--shadow);
+  }
+  .game .icon { width: 56px; height: 56px; flex: none; border-radius: 14px; }
+  .game .body { min-width: 0; }
+  .game h2 { margin: 0 0 3px; font-size: 1.15rem; letter-spacing: -.01em; }
+  .game p { margin: 0; color: var(--muted); font-size: .95rem; }
+  .badge {
+    display: inline-block; margin-top: 10px; padding: 3px 10px;
+    font-size: .76rem; font-weight: 600; border-radius: 999px;
+    color: var(--accent); background: var(--accent-soft);
+  }
+
+  footer {
+    margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--border);
+    color: var(--muted); font-size: .9rem;
+    display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center;
+  }
+  footer a { color: var(--accent); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+  footer .copy { margin-left: auto; }
+  @media (max-width: 460px) { footer .copy { margin-left: 0; width: 100%; } }
 </style>
 </head>
 <body>
 <main>
-<h1>Ryo Games</h1>
-<p>Small, simple mobile games.</p>
+  <div class="brand">
+    <div>
+      <h1>Ryo Games</h1>
+      <p class="tag">Independent game developer</p>
+    </div>
+  </div>
 
-<div class="game">
-  <h2>Stacker</h2>
-  <p>One-tap tower stacker for Android. Coming soon to Google Play.</p>
-</div>
+  <p class="intro">Small, simple mobile games — quick to pick up, easy to enjoy in short bursts.</p>
 
-<p><a href="privacy.html">Privacy Policy</a> ·
-   <a href="mailto:ryostu.game@gmail.com">ryostu.game@gmail.com</a></p>
+  <p class="section-label">Games</p>
+  <div class="game">
+    <svg class="icon" viewBox="0 0 32 32" role="img" aria-label="Stacker icon">
+      <rect width="32" height="32" rx="7.5" fill="var(--accent)"/>
+      <rect x="7" y="18" width="18" height="5" rx="1.5" fill="#fff"/>
+      <rect x="9" y="12" width="14" height="5" rx="1.5" fill="#fff" opacity=".85"/>
+      <rect x="11" y="6" width="10" height="5" rx="1.5" fill="#fff" opacity=".7"/>
+    </svg>
+    <div class="body">
+      <h2>Stacker</h2>
+      <p>One-tap tower stacker for Android. Time your taps, stack the blocks, climb as high as you can.</p>
+      <span class="badge">Coming soon to Google Play</span>
+    </div>
+  </div>
+
+  <footer>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="mailto:ryostu.game@gmail.com">ryostu.game@gmail.com</a>
+    <span class="copy">© 2026 Ryo Games</span>
+  </footer>
 </main>
 </body>
 </html>

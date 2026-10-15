@@ -4,14 +4,33 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Privacy Policy – Ryo Games</title>
+<meta name="description" content="Privacy policy for Ryo Games and the Stacker game for Android.">
+<meta name="theme-color" content="#fdf8ee" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#15161f" media="(prefers-color-scheme: dark)">
 <style>
-  :root { --bg: #fdf8ee; --text: #262940; --muted: #6b6d80; --accent: #29a361; }
+  :root {
+    --bg: #fdf8ee; --text: #262940; --muted: #6b6d80; --border: #ece4d4; --accent: #29a361;
+  }
+  :root:not([data-theme="light"]) {
+    @media (prefers-color-scheme: dark) {
+      --bg: #15161f; --text: #ecedf5; --muted: #9a9cb3; --border: #2b2d40; --accent: #45c57e;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #15161f; --text: #ecedf5; --muted: #9a9cb3; --border: #2b2d40; --accent: #45c57e;
+  }
+  * { box-sizing: border-box; }
   body { margin: 0; background: var(--bg); color: var(--text);
-         font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+         font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+         -webkit-font-smoothing: antialiased; }
   main { max-width: 720px; margin: 0 auto; padding: 32px 16px 64px; }
-  h1 { font-size: 1.9rem; margin: 0 0 4px; }
-  h2 { font-size: 1.2rem; margin: 32px 0 8px; }
+  .back { display: inline-flex; align-items: center; gap: 6px; color: var(--accent);
+          text-decoration: none; font-size: .9rem; margin-bottom: 20px; }
+  .back:hover { text-decoration: underline; }
+  h1 { font-size: 1.9rem; margin: 0 0 4px; letter-spacing: -.02em; }
+  h2 { font-size: 1.2rem; margin: 32px 0 8px; letter-spacing: -.01em; }
   .meta { color: var(--muted); margin: 0 0 24px; }
+  p { color: var(--text); }
   a { color: var(--accent); }
   ul { padding-left: 1.2em; }
   li { margin: 4px 0; }
@@ -19,6 +38,7 @@
 </head>
 <body>
 <main>
+<a class="back" href="index.html">← Ryo Games</a>
 <h1>Privacy Policy</h1>
 <p class="meta">Ryo Games · Effective date: 14 October 2026</p>
 
