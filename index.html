@@ -4,11 +4,18 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ryo Games</title>
-<meta name="description" content="Ryo Games — small, simple mobile games for Android.">
+<meta name="description" content="Ryo Games: small, cozy mobile games made by one indie developer.">
 <meta name="theme-color" content="#fdf8ee" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#15161f" media="(prefers-color-scheme: dark)">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2329a361'/%3E%3Ctext x='32' y='44' font-family='system-ui,sans-serif' font-size='40' font-weight='700' fill='%23fff' text-anchor='middle'%3ER%3C/text%3E%3C/svg%3E">
+<script>
+  try { var t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+</script>
 <style>
+  @font-face {
+    font-family: "Titan One";
+    src: url("fonts/TitanOne-Regular.ttf") format("truetype");
+    font-display: swap;
+  }
   :root {
     --bg: #fdf8ee;
     --surface: #ffffff;
@@ -17,10 +24,12 @@
     --border: #ece4d4;
     --accent: #29a361;
     --accent-soft: #e4f4ea;
+    --sun: #f6c64f;
+    --ink: #262940;
     --shadow: 0 1px 2px rgba(38,41,64,.04), 0 8px 24px rgba(38,41,64,.06);
   }
-  :root:not([data-theme="light"]) {
-    @media (prefers-color-scheme: dark) {
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
       --bg: #15161f;
       --surface: #1e2030;
       --text: #ecedf5;
@@ -48,18 +57,35 @@
     font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
     -webkit-font-smoothing: antialiased;
   }
-  main { max-width: 680px; margin: 0 auto; padding: 56px 16px 40px; }
+  main { max-width: 600px; margin: 0 auto; padding: 64px 16px 40px; }
 
-  .brand { display: flex; align-items: center; gap: 14px; margin-bottom: 32px; }
-  .brand .logo { width: 52px; height: 52px; flex: none; border-radius: 13px; box-shadow: var(--shadow); }
-  .brand h1 { font-size: 1.9rem; margin: 0; letter-spacing: -.02em; }
-  .brand .tag { color: var(--muted); font-size: .95rem; margin: 2px 0 0; }
+  .theme-toggle {
+    position: fixed; top: 14px; right: 14px; width: 40px; height: 40px;
+    border-radius: 50%; border: 1px solid var(--border); background: var(--surface);
+    color: var(--text); font-size: 1.15rem; line-height: 1; cursor: pointer; box-shadow: var(--shadow);
+  }
+  .theme-toggle:hover { border-color: var(--accent); }
 
-  .intro { font-size: 1.1rem; color: var(--text); margin: 0 0 32px; max-width: 46ch; }
+  .hello { text-align: center; margin-bottom: 48px; }
+  h1 {
+    font-family: "Titan One", system-ui, sans-serif; font-weight: 400;
+    font-size: 2.6rem; line-height: 1.1; margin: 0 0 12px; letter-spacing: .01em;
+  }
+  .hello p { margin: 0 auto; max-width: 40ch; font-size: 1.1rem; line-height: 1.7; color: var(--muted); }
 
-  .section-label {
-    font-size: .78rem; font-weight: 600; letter-spacing: .08em;
-    text-transform: uppercase; color: var(--muted); margin: 0 0 12px;
+  .note {
+    margin: -16px auto 40px; max-width: 420px; padding: 10px 16px;
+    border-left: 3px solid var(--accent); background: var(--accent-soft);
+    border-radius: 0 12px 12px 0; font-size: .95rem; color: var(--text);
+  }
+  .note-label {
+    display: block; font-size: .72rem; font-weight: 600; letter-spacing: .06em;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 2px;
+  }
+
+  h2 {
+    font-family: "Titan One", system-ui, sans-serif; font-weight: 400;
+    font-size: 1.25rem; margin: 0 0 14px; letter-spacing: .01em;
   }
 
   .game {
@@ -67,58 +93,88 @@
     background: var(--surface); border: 1px solid var(--border);
     border-radius: 18px; padding: 18px 20px; box-shadow: var(--shadow);
   }
-  .game .icon { width: 56px; height: 56px; flex: none; border-radius: 14px; }
+  .game .icon { width: 72px; height: 72px; flex: none; border-radius: 16px; }
   .game .body { min-width: 0; }
-  .game h2 { margin: 0 0 3px; font-size: 1.15rem; letter-spacing: -.01em; }
+  .game h3 { margin: 0 0 2px; font-size: 1.15rem; }
   .game p { margin: 0; color: var(--muted); font-size: .95rem; }
   .badge {
     display: inline-block; margin-top: 10px; padding: 3px 10px;
-    font-size: .76rem; font-weight: 600; border-radius: 999px;
+    font-size: .78rem; font-weight: 600; border-radius: 999px;
     color: var(--accent); background: var(--accent-soft);
   }
+  .next {
+    margin-top: 12px; padding: 14px 20px; border-radius: 18px;
+    border: 2px dashed var(--border); color: var(--muted); font-size: .95rem; text-align: center;
+  }
+
+  .hi { margin-top: 48px; text-align: center; }
+  .hi p { margin: 0 0 14px; color: var(--muted); }
+  .btn {
+    display: inline-block; padding: 10px 22px; border-radius: 999px;
+    background: var(--accent); color: #fff; text-decoration: none; font-weight: 600;
+  }
+  .btn:hover { filter: brightness(1.06); }
 
   footer {
-    margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--border);
-    color: var(--muted); font-size: .9rem;
-    display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center;
+    margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--border);
+    color: var(--muted); font-size: .88rem;
+    display: flex; flex-wrap: wrap; gap: 8px 18px; justify-content: center;
   }
   footer a { color: var(--accent); text-decoration: none; }
   footer a:hover { text-decoration: underline; }
-  footer .copy { margin-left: auto; }
-  @media (max-width: 460px) { footer .copy { margin-left: 0; width: 100%; } }
 </style>
 </head>
 <body>
+<button class="theme-toggle" type="button" aria-label="Switch light or dark theme"></button>
 <main>
-  <div class="brand">
-    <div>
-      <h1>Ryo Games</h1>
-      <p class="tag">Independent game developer</p>
-    </div>
-  </div>
+  <section class="hello">
+    <h1>I'm Ryo</h1>
+    <p>Game development is my calling.<br>
+    Every small game is a step on the road, and the road leads to one big dream.</p>
+  </section>
 
-  <p class="intro">Small, simple mobile games — quick to pick up, easy to enjoy in short bursts.</p>
+  <aside class="note">
+    <span class="note-label">Dev note · November 2026</span>
+    Animal Merge is where the journey begins.
+  </aside>
 
-  <p class="section-label">Games</p>
+  <h2>My games</h2>
   <div class="game">
-    <svg class="icon" viewBox="0 0 32 32" role="img" aria-label="Stacker icon">
-      <rect width="32" height="32" rx="7.5" fill="var(--accent)"/>
-      <rect x="7" y="18" width="18" height="5" rx="1.5" fill="#fff"/>
-      <rect x="9" y="12" width="14" height="5" rx="1.5" fill="#fff" opacity=".85"/>
-      <rect x="11" y="6" width="10" height="5" rx="1.5" fill="#fff" opacity=".7"/>
-    </svg>
+    <img class="icon" src="img/animal-merge-icon.png" width="72" height="72" alt="Animal Merge icon">
     <div class="body">
-      <h2>Stacker</h2>
-      <p>One-tap tower stacker for Android. Time your taps, stack the blocks, climb as high as you can.</p>
-      <span class="badge">Coming soon to Google Play</span>
+      <h3>Animal Merge: Cozy Drop Puzzle</h3>
+      <p>A cozy drop and merge puzzle. Match two animals to make the next bigger one.</p>
+      <span class="badge">In testing on Android</span>
     </div>
   </div>
+  <div class="next">Next quest: in the works.</div>
+
+  <section class="hi">
+    <p>Questions, bugs or just want to say hi?</p>
+    <a class="btn" href="mailto:ryostu.game@gmail.com">Say hello</a>
+  </section>
 
   <footer>
     <a href="privacy.html">Privacy Policy</a>
     <a href="mailto:ryostu.game@gmail.com">ryostu.game@gmail.com</a>
-    <span class="copy">© 2026 Ryo Games</span>
+    <span>© 2026 Ryo Games</span>
   </footer>
 </main>
+<script>
+  (function () {
+    var root = document.documentElement, btn = document.querySelector(".theme-toggle");
+    var dark = matchMedia("(prefers-color-scheme: dark)");
+    function current() { return root.dataset.theme || (dark.matches ? "dark" : "light"); }
+    function paint() { btn.textContent = current() === "dark" ? "☀" : "☾"; }
+    btn.addEventListener("click", function () {
+      var next = current() === "dark" ? "light" : "dark";
+      root.dataset.theme = next;
+      try { localStorage.setItem("theme", next); } catch (e) {}
+      paint();
+    });
+    dark.addEventListener("change", paint);
+    paint();
+  })();
+</script>
 </body>
 </html>
